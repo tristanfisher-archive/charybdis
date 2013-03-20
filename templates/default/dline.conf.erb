@@ -1,0 +1,17 @@
+#Controlled by Chef
+
+#Dlines for <%= node[:fqdn] %>
+
+#File to prevent users from connecting at all.
+
+#For simple placement of a variable:
+#<%= @dline_description %>
+
+<%- @ipaddresses.each do |ip| %>
+
+#minutes don't really make sense to include in chef (nor server)
+#D: <minutes (optional)> <ip> <server (optional) <reason>
+#D: 10 10.0.2.2 'test'
+  <%= ip %> D: <%= "ip" if @ip %> 'admin has his/her reasons'
+
+<%- end %>
