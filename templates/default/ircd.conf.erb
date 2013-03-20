@@ -14,7 +14,7 @@
 
 <%- if @extensions %>
   <% @extensions.each do |extension| -%>
-  loadmodule "extensions/<%= extension %>";
+  loadmodule "<%= extension %>";
   <% end -%>
 <%-end %>
 
@@ -84,7 +84,7 @@ serverinfo {
           #ssl_dh_params = "etc/<%= @ssl_dh_params %>";
 	    <% end -%>
 	    <% if @ssld_count -%>
-	        ssld_count = <%= @ssld_count %>";
+	        ssld_count = "<%= @ssld_count %>";
 	    <% else -%>
 	        ssld_count = 1;
 	    <% end -%>
@@ -176,8 +176,6 @@ auth {
 	 */
 
     <% @opers_auth_users.each do |oper_auth_user| -%>
-      #"*@172.16.0.0/12";
-      #"*@fc00::*";
       user = <%= oper_auth_user %>
     <% end -%>
 
