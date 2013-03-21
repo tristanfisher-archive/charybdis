@@ -12,7 +12,7 @@ Chef::Log.info("charybdis installed")
 
 template "/etc/charybdis/dline.conf" do
 	source "dline.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -23,7 +23,7 @@ end
 
 template "/etc/charybdis/ircd.conf" do
 	source "ircd.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -92,7 +92,7 @@ end
 
 template "/etc/charybdis/ircd.motd" do
 	source "ircd.motd.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -102,7 +102,7 @@ end
 
 template "/etc/charybdis/kline.conf" do
 	source "kline.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -112,7 +112,7 @@ end
 
 template "/etc/charybdis/reference.conf" do
 	source "reference.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -122,7 +122,7 @@ end
 
 template "/etc/charybdis/resv.conf" do
 	source "resv.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
@@ -132,7 +132,7 @@ end
 
 template "/etc/charybdis/xline.conf" do
 	source "xline.conf.erb"
-	mode	0440
+	mode	0444
 	owner	node[:charybdis][:users]
 	group	node[:charybdis][:group]
 	variables({
