@@ -12,7 +12,7 @@
 
 /* Extensions */
 
-<%- if @extensions %>
+<%- if ! @extensions.empty? %>
   <% @extensions.each do |extension| -%>
   loadmodule "<%= extension %>";
   <% end -%>
@@ -55,7 +55,7 @@ serverinfo {
 	description = "<%= @server_description %>";
 	network_name = "<%= @network_name %>";
 	network_desc = "<%= @network_desc %>";
-	hub = <%= @network_hub %>; #yes
+	hub = <%= @network_hub %>;
 
 	/* On multi-homed hosts you may need the following. These define
 	 * the addresses we connect from to other servers. */
@@ -73,93 +73,128 @@ serverinfo {
 	 * can also be useful in case of bugs in ssld and because ssld needs
 	 * two file descriptors per SSL connection.
 	 */
-	  <% if @ssl_private_key and @ssl_cert -%>
-	    ssl_private_key = "<%= @ssl_private_key %>";
-	    ssl_cert = "<%= @ssl_cert %>";
-	    <% if @ssl_dh_params -%>
-	        ssl_dh_params = "<%= @ssl_dh_params %>";
-	    <% else -%>
-	        /* ssl_dh_params: DH parameters, generate with openssl dhparam -out dh.pem 1024 */
-	        #ssl_dh_params = "etc/dh.pem";
-          #ssl_dh_params = "etc/<%= @ssl_dh_params %>";
-	    <% end -%>
-	    <% if @ssld_count -%>
-	        ssld_count = "<%= @ssld_count %>";
-	    <% else -%>
-	        ssld_count = 1;
-	    <% end -%>
-    <% else -%>
-        #ssl_private_key and ssl_cert not set in chef. if you want ssl, remedy this.
-    <% end -%>
+	<% if @ssl_private_key and @ssl_cert -%>
+	  ssl_private_key = "<%= @ssl_private_key %>";
+	  ssl_cert = "<%= @ssl_cert %>";
+	  <% if @ssl_dh_params -%>
+	  ssl_dh_params = "<%= @ssl_dh_params %>";
+	  <% else -%>
+	  /* ssl_dh_params: DH parameters, generate with openssl dhparam -out dh.pem 1024 */
+	  #ssl_dh_params = "etc/dh.pem";
+    #ssl_dh_params = "etc/<%= @ssl_dh_params %>";
+	  <% end -%>
+	  <% if @ssld_count -%>
+	  ssld_count = "<%= @ssld_count %>";
+	  <% else -%>
+	  ssld_count = 1;
+	  <% end -%>
+  <% else -%>
+    #ssl_private_key and ssl_cert not set in chef. if you want ssl, remedy this.
+  <% end -%>
 
 	/* default max clients: the default maximum number of clients
 	 * allowed to connect.  This can be changed once ircd has started by
 	 * issuing:
 	 *   /quote set maxclients <limit>
 	 */
-   default_max_clients = "<%= @default_max_clients %>
+    default_max_clients = <%= @default_max_clients %>;
 };
 
 admin {
 	name = "<%= @admin_name  %>";
-	description = "<%= @admin_description %>"
+	description = "<%= @admin_description %>";
 	email = "<%= @admin_email %>";
 };
 
 log {
-  fname_userlog = <%= @fname_userlog %>;
-  #fname_fuserlog = <%= @fname_fuserlog %>;
-  fname_operlog =  <%= @fname_operlog %>;
-  #fname_foperlog = <%= @fname_foperlog %>;
-  fname_serverlog = <%= @fname_serverlog %>;
-  #fname_klinelog = <%= @fname_klinelog %>;
-  fname_killlog = <%= @fname_killlog %>;
-  fname_operspylog = <%= @fname_operspylog %>;
-  #fname_ioerrorlog = <%= @fname_ioerrorlog %>;
+        fname_userlog = "<%= @fname_userlog %>";
+        #fname_fuserlog = "<%= @fname_fuserlog %>";
+        fname_operlog = "<%= @fname_operlog %>";
+        #fname_foperlog = "<%= @fname_foperlog %>";
+        fname_serverlog = "<%= @fname_serverlog %>";
+        #fname_klinelog = "<%= @fname_klinelog %>";
+        fname_killlog = "<%= @fname_killlog %>";
+        fname_operspylog = "<%= @fname_operspylog %>";
+        #fname_ioerrorlog = "<%= @fname_ioerrorlog %>";
 };
 
 /* class {} blocks MUST be specified before anything that uses them.  That
  * means they must be defined before auth {} and before connect {}.
  */
 class "users" {
-  ping_time = <%= @users_ping_time %>;
-  number_per_ident = <%= @users_number_per_ident %>;
-  number_per_ip = <%= @users_number_per_ip %>;
-  number_per_ip_global = <%= @users_number_per_ip_global %>;
-  cidr_ipv4_bitlen = <%= @users_cidr_ipv4_bitlen %>;
-  cidr_ipv6_bitlen = <%= @users_cidr_ipv6_bitlen %>;
-  number_per_cidr = <%= @users_number_per_cidr %>;
-  max_number = <%= @users_max_number %>;
-  sendq = <%= @users_sendq %>;
+        ping_time = <%= @users_ping_time %>;
+        number_per_ident = <%= @users_number_per_ident %>;
+        number_per_ip = <%= @users_number_per_ip %>;
+        number_per_ip_global = <%= @users_number_per_ip_global %>;
+        cidr_ipv4_bitlen = <%= @users_cidr_ipv4_bitlen %>;
+        cidr_ipv6_bitlen = <%= @users_cidr_ipv6_bitlen %>;
+        number_per_cidr = <%= @users_number_per_cidr %>;
+        max_number = <%= @users_max_number %>;
+        sendq = <%= @users_sendq %>;
 };
 
 class "opers" {
-  ping_time = <%= @opers_ping_time %>;
-  number_per_ip = <%= @opers_number_per_ip %>;
-  max_number = <%= @opers_max_number %>;
-  sendq = <%= @opers_sendq %>;
+        ping_time = <%= @opers_ping_time %>;
+        number_per_ip = <%= @opers_number_per_ip %>;
+        max_number = <%= @opers_max_number %>;
+        sendq = <%= @opers_sendq %>;
 };
 
 class "server" {
-  ping_time = <%= @server_ping_time %>;
-  connectfreq = <%= @server_connectfreq %>;
-  max_number = <%= @server_max_number %>;
-  sendq = <%= @server_sendq %>;
+        ping_time = <%= @server_ping_time %>;
+        connectfreq = <%= @server_connectfreq %>;
+        max_number = <%= @server_max_number %>;
+        sendq = <%= @server_sendq %>;
 };
 
 listen {
 	/* If you want to listen on a specific IP only, specify host.
 	 * host definitions apply only to the following port line.
 	 */
-
-  host = <%= @listen_host %>;
-  port = <%= @listen_port %>;
-  sslport = <%= @listen_sslport %>;
+   <% #35 == # in ascii -%>
+   <% if @listen_host[0].to_s == "35"
+        hostline = '#host = "' + @listen_host + '"'
+      else
+        hostline = 'host = "' + @listen_host + '"'
+      end
+  -%><%= hostline %>;
+  port =  <% @listen_port.each do |port|
+    if @listen_port.index(port) == @listen_port.count.to_i - 1;
+      port = port + ';'
+    else
+      port = port + ','
+    end
+  -%><%= port %><% end -%>
+  sslport = <% @listen_sslport.each do |port|
+    if @listen_sslport.index(port) == @listen_port.count.to_i - 1;
+      port = port + ';'
+    elsif @listen_sslport.count.to_i == 1;
+      port = port + ';'
+    else
+      port = port + ','
+    end
+  -%><%= port %><% end -%>
 
 	/* Listen on IPv6 (if you used host= above). */
-  host = <%= @listen_ipv6_host %>;
-  #port = <%= @listen_ipv6_port %>;
-  #sslport = <%= @listen_ipv6_sslport %>;
+  /* TODO: loop through ssl ports as well.
+  #host = "<%= @listen_ipv6_host %>";
+  #port =  <% @listen_ipv6_port.each do |port|
+  if @listen_ipv6_port.index(port) == @listen_ipv6_port.count.to_i - 1;
+    port = port + ';'
+  else
+    port = port + ','
+  end
+  -%><%= port %><% end -%>
+  #sslport = <% @listen_ipv6_sslport.each do |port|
+    if @listen_ipv6_sslport.index(port) == @listen_ipv6_port.count.to_i - 1;
+      port = port + ';'
+    elsif @listen_ipv6_sslport.count.to_i == 1;
+      port = port + ';'
+    else
+      port = port + ','
+    end
+  -%><%= port %><% end -%>
+
 };
 
 /* auth {}: allow users to connect to the ircd (OLD I:)
@@ -168,15 +203,14 @@ listen {
  * then general access, then restricted.
  */
 auth {
-	/* user: the user@ host allowed to connect.  Multiple IPv4/IPv6 user
+	/* user: the user@host allowed to connect.  Multiple IPv4/IPv6 user
 	 * lines are permitted per auth block.  This is matched against the
 	 * hostname and IP address (using :: shortening for IPv6 and
 	 * prepending a 0 if it starts with a colon) and can also use CIDR
 	 * masks.
 	 */
-
     <% @opers_auth_users.each do |oper_auth_user| -%>
-      user = <%= oper_auth_user %>
+      user = "<%= oper_auth_user %>";
     <% end -%>
 
 	/* password: an optional password that is required to use this block.
@@ -184,19 +218,19 @@ auth {
 	 * flags = ...; below if it is.
 	 */
 
-   password = <%= @opers_password %>;
+   password = "<%= @opers_password %>";
 
 	/* opers: fake the users user @ host to be be this.  You may either
 	 * specify a host or a user @ host to opers to.  This is free-form,
 	 * just do everyone a favour and dont abuse it. (OLD I: = flag)
 	 */
 
-   spoof = <%= @opers_spoof %>;
+   spoof = "<%= @opers_spoof %>";
 
 	/* Possible flags in auth:
 	 *
 	 * encrypted                  | password is encrypted with mkpasswd
-	 * opers_notice               | give a notice when opersing hosts
+	 * spoof_notice               | give a notice when opersing hosts
 	 * exceed_limit (old > flag)  | allow user to exceed class user limits
 	 * kline_exempt (old ^ flag)  | exempt this user from k/g/xlines&dnsbls
 	 * dnsbl_exempt		      | exempt this user from dnsbls
@@ -213,7 +247,7 @@ auth {
 	 * need_sasl                  | require SASL id for user in this class
 	 */
 
-  <% @opers_flags.each do |oper_flag|
+    flags = <% @opers_flags.each do |oper_flag|
     #x='exceed_limit'; if flags.index(x) == flags.count.to_i - 1; puts x+';' else puts x+',' end
     #if flag is last in array, terminate with semicolon. else, needs a comma.
     if @opers_flags.index(oper_flag) == @opers_flags.count.to_i - 1;
@@ -221,17 +255,11 @@ auth {
     else
       oper_flag = oper_flag + ','
     end
-  -%>
+     -%><%= oper_flag %><% end -%>
 
-	/* flags = kline_exempt, exceed_limit; */
-  flags = <%= oper_flag %>
+	    /* class: the class the user is placed in */
+      class = "<%= @opers_auth_class %>";
 
-<% end -%>
-
-	/* class: the class the user is placed in */
-  #class = <%= @opers_auth_class %>; %>
-
-  class = "opers";
 };
 
 auth {
@@ -264,8 +292,7 @@ privset "admin" {
 	privs = oper:admin, oper:die, oper:rehash, oper:spy;
 };
 
-operator "<%= @god_op_name %>"
-/* operator "god" { */
+operator "<%= @god_op_name %>" {
 	/* name: the name of the oper must go above */
 
 	/* user: the user @ host required for this operator.  CIDR *is*
@@ -273,52 +300,43 @@ operator "<%= @god_op_name %>"
  	 * multiple user="" lines are supported.
    */
 
-  user = "<%= @god_op_userhost %>";
+    user = "<%= @god_op_userhost %>";
 
 	/* password: the password required to oper.  Unless ~encrypted is
 	 * contained in flags = ...; this will need to be encrypted using
 	 * mkpasswd, MD5 is supported
 	 */
 
-  password = "<%= @god_op_password %>";
+    password = "<%= @god_op_password %>";
 
 	/* rsa key: the public key for this oper when using Challenge.
 	 * A password should not be defined when this is used, see
 	 * doc/challenge.txt for more information.
 	 */
-  #rsa_public_key_file = "<%= @god_op_rsa_public_key_file %>";
+    #rsa_public_key_file = "<%= @god_op_rsa_public_key_file %>";
 
 	/* umodes: the specific umodes this oper gets when they oper.
 	 * If this is specified an oper will not be given oper_umodes
 	 * These are described above oper_only_umodes in general {};
 	 */
-	#umodes = locops, servnotice, operwall, wallop;
-
-  <% @god_op_umodes.each do |god_op_umode|
-    #x='exceed_limit'; if god_op_umodes.index(x) == god_op_umodes.count.to_i - 1; puts x+';' else puts x+',' end
-    #if last in array, terminate with semicolon. else, needs a comma.
+    #umodes = <% @god_op_umodes.each do |god_op_umode|
     if @god_op_umodes.index(god_op_umode) == @god_op_umodes.count.to_i - 1;
       god_op_umode = god_op_umode + ';'
     else
       god_op_umode = god_op_umode + ','
     end
-  -%>
-      god_op_umodes = <%= god_op_umode %>
-  <% end -%>
-
-
+    -%><%= god_op_umode %><% end -%>
 
 	/* fingerprint: if specified, the oper's client certificate
 	 * fingerprint will be checked against the specified fingerprint
 	 * below.
 	 */
-	#fingerprint = "c77106576abf7f9f90cca0f63874a60f2e40a64b";
 	#fingerprint = "<%= @god_op_fingerprint %>";
 
 	/* snomask: specific server notice mask on oper up.
 	 * If this is specified an oper will not be given oper_snomask.
 	 */
-  snomask = "<%= @god_op_snomask %>";
+    snomask = "<%= @god_op_snomask %>";
 
 	/* flags: misc options for the operator.  You may prefix an option
 	 * with ~ to disable it, e.g. ~encrypted.
@@ -492,7 +510,7 @@ general {
 	 *	default_umodes = "+ih";
 	 * default_umodes = "+i";
   */
-  default_umodes = <%= @default_umodes %>
+    default_umodes = "<%= @default_umodes %>";
 
 	default_operstring = "is an IRC Operator";
 	default_adminstring = "is a Server Administrator";

@@ -5,7 +5,7 @@ default[:charybdis][:installation][:md5] = '54245396b829f8d19d3958cde9c3bd65'
 ##########
 #default[:charybdis][:conf][:dline][:ipaddress] = ["192.168.255.255","169.0.0.1"]
 default[:charybdis][:conf][:dline][:description] = 'deny any connections from the given IP address -- DLINE [length] a.b.c.d [ON servername] [:reason]'
-default[:charybdis][:conf][:dline][:ipaddresses] = ['']
+default[:charybdis][:conf][:dline][:ipaddresses] = []
 
 ##########
 # ircd.conf.erb
@@ -13,11 +13,11 @@ default[:charybdis][:conf][:dline][:ipaddresses] = ['']
 #Include your extension_module.so -- the directory
 #is already prefixed with extensions/
 
-default[:charybdis][:conf][:ircd][:extensions] =  ['']
+default[:charybdis][:conf][:ircd][:extensions] =  []
 ##Serverinfo
-default[:charybdis][:conf][:ircd][:server_name] = 'My IRC has a first name and its first name is internet.'
+default[:charybdis][:conf][:ircd][:server_name] = 'hades.arpa'
 default[:charybdis][:conf][:ircd][:sid] = '42X'
-default[:charybdis][:conf][:ircd][:server_description] = 'An IRC server.'
+default[:charybdis][:conf][:ircd][:server_description] = 'charybdis test server'
 default[:charybdis][:conf][:ircd][:network_name] = 'IRC Network Name goes here.  Or not.'
 default[:charybdis][:conf][:ircd][:network_desc] = 'An IRC server network.'
 default[:charybdis][:conf][:ircd][:network_hub] = 'yes'
@@ -62,12 +62,12 @@ default[:charybdis][:conf][:ircd][:server_connectfreq] = '5 minutes'
 default[:charybdis][:conf][:ircd][:server_max_number] = '1'
 default[:charybdis][:conf][:ircd][:server_sendq] = '4 megabytes'
 ##Listen
-default[:charybdis][:conf][:ircd][:listen_host] = '192.169.0.1'
-default[:charybdis][:conf][:ircd][:listen_port] = ['5000', '6665', '6669', '7070']
-default[:charybdis][:conf][:ircd][:listen_sslport] = '9999'
+default[:charybdis][:conf][:ircd][:listen_host] = '#192.169.0.1'
+default[:charybdis][:conf][:ircd][:listen_port] = ['5000', '6665 .. 6669']
+default[:charybdis][:conf][:ircd][:listen_sslport] = ['6697']
 default[:charybdis][:conf][:ircd][:listen_ipv6_host] = "3ffe:1234:a:b:c::d"
-default[:charybdis][:conf][:ircd][:listen_ipv6_port] = ['5000', '6665', '6669', '7070']
-default[:charybdis][:conf][:ircd][:listen_ipv6_sslport] = '9999'
+default[:charybdis][:conf][:ircd][:listen_ipv6_port] = ['5000', '6665 .. 6669']
+default[:charybdis][:conf][:ircd][:listen_ipv6_sslport] = ['9999']
 ##Auth
 default[:charybdis][:conf][:ircd][:opers_auth_users] = ['*@172.16.0.0/12','*@fc00::*']
 default[:charybdis][:conf][:ircd][:opers_password] = 'letmein'
