@@ -28,7 +28,7 @@ default[:charybdis][:conf][:ircd][:ssl_dh_params] = 'etc/dh.pem'
 default[:charybdis][:conf][:ircd][:ssld_count] = '1'
 default[:charybdis][:conf][:ircd][:default_max_clients] = '1024'
 ##Admin
-default[:charybdis][:conf][:ircd][:admin_name] = 'IRC Aadmin'
+default[:charybdis][:conf][:ircd][:admin_name] = 'IRC Admin'
 default[:charybdis][:conf][:ircd][:admin_description] = 'An IRC Server Admin'
 default[:charybdis][:conf][:ircd][:admin_email] = 'nobody@127.0.0.1'
 ##Log
