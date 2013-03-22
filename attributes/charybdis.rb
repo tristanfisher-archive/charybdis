@@ -88,7 +88,7 @@ default[:charybdis][:conf][:ircd][:default_umodes] = '+i'
 ##########
 # ircd.motd.erb
 ##########
-default[:charybdis][:conf][:motd] = "node['fqdn']"
+default[:charybdis][:conf][:motd] = node[:fqdn]
 
 ##########
 # kline.conf.erb
