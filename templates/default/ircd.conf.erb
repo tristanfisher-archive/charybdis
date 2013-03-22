@@ -84,7 +84,7 @@ serverinfo {
     #ssl_dh_params = "etc/<%= @ssl_dh_params %>";
 	  <% end -%>
 	  <% if @ssld_count -%>
-	  ssld_count = "<%= @ssld_count %>";
+	  ssld_count = <%= @ssld_count %>;
 	  <% else -%>
 	  ssld_count = 1;
 	  <% end -%>
